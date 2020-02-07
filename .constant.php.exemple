@@ -1,0 +1,15 @@
+<?php
+/**
+ * Title  : ICT-151
+ * User   : simon.cuany
+ * Date   : 07.02.2020
+ * Time   : 08:09
+ */
+
+$user = "Toto";
+
+$pass = "Motdepasse";
+
+$dbhost='localhost';
+$dbname='Toto';
+?>

@@ -6,20 +6,64 @@
  * Time   : 13:57
  */
 
-$user = "PHPApplication";
 
-$pass = "Pa$\$w0rd";
+function getAllItems()
+{
 
-try {
+    require ".constant.php";
 
-    $dbh = new PDO('mysql:host=localhost;dbname=mcu', $user, $pass);
-    foreach ($dbh->query('SELECT * from actors') as $row) {
-        print_r($row);
+    try {
+
+        $dbh = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
+        $query = 'SELECT * FROM filmmakers'; //initalise the Query variable and the commande to execute
+        $statement = $dbh->prepare($query);//Prepare Query
+        $statement ->execute();
+        $queryResult = $statement->fetchAll(); //prepare result for client
+        $dbh = null;
+        return $queryResult;
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        die();
     }
-    $dbh = null;
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
 }
 
+function getoneItem() {
+
+    require ".constant.php";
+
+    try {
+
+        $dbh = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
+        $query = 'SELECT * FROM filmmakers'; //initalise the Query variable and the commande to execute
+        $statement = $dbh->prepare($query);//Prepare Query
+        $statement ->execute();
+        $queryResult = $statement->fetchAll(); //prepare result for client
+        $dbh = null;
+        return $queryResult;
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        die();
+    }
+
+}
+// Test unitaire de la fonction getAllItems
+$Items = getAllItems();
+if (count($Items) == 4) {
+    echo "Test unitaire de la fonction getAllItems : ";
+    echo "OK MON POTE
+";
+} else {
+    echo "Test unitaire de la fonction getAllItems : ";
+    echo "PAS OKE MON POTE";
+}
+
+//Test unitaire
+$Item = getoneItem();
+if (count($Item) == 4) {
+    echo "Test unitaire de la fonction GetoneItem : ";
+    echo "OK MON POTE";
+} else {
+    echo "Test unitaire de la fonction GetoneItem : ";
+    echo "PAS OKE MON POTE";
+}
 ?>
