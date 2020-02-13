@@ -8,7 +8,7 @@
 
 $user = "Toto";
 
-$pass = "Motdepasse";
+$pass = "Totomotdepasse";
 
 $dbhost='localhost';
 $dbname='Toto';
