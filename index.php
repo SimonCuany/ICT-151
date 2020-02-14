@@ -6,36 +6,46 @@
  * Time   : 13:57
  */
 
+function getPDO()
+{
+    require ".constant.php";
+    $dbh = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
+    return $dbh;
+
+
+}
 
 function getAllItems()
 {
 
-    require ".constant.php";
-
     try {
-
-        $dbh = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
+        $dbh = getPDO();
         $query = 'SELECT * FROM filmmakers'; //initalise the Query variable and the commande to execute
         $statement = $dbh->prepare($query);//Prepare Query
         $statement->execute();
         $queryResult = $statement->fetchAll(); //prepare result for client
         $dbh = null;
         return $queryResult;
+
+
+
+
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
 
     }
+
 }
 
 function getoneItem()
 {
 
-    require ".constant.php";
+
 
     try {
 
-        $dbh = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
-        $query = 'SELECT * FROM filmMakers'; //initalise the Query variable and the commande to execute
+        $dbh = getPDO();
+        $query="SELECT * FROM filmmakers WHERE id=$id";
         $statement = $dbh->prepare($query);//Prepare Query
         $statement->execute();
         $queryResult = $statement->fetchAll(); //prepare result for client
@@ -46,6 +56,23 @@ function getoneItem()
 
     }
 
+}
+
+function getFilmMaker($id)
+{
+
+    try {
+        $dbh = getPDO();
+        $query = "SELECT * FROM filmakers ";
+        $statment = $dbh->prepare($query);//prepare query
+        $statment->execute();//execute query
+        $queryResult = $statment->fetch();//prepare result for client
+        $dbh = null;
+        return $queryResult;
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        return null;
+    }
 }
 
 
@@ -55,12 +82,16 @@ function updateFilmMaker($filmMakers)
 
     try {
 
-        require ".constant.php";
-        $dbh = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
-        $query = "UPDATE filmMakers SET lastname = 'Toto', nationality = 'Espagol' WHERE id = $id"; //initalise the Query variable and the commande to execute
+
+        $dbh = getPDO();
+        $query = "UPDATE filmMakers SET
+                      filmakernumber=:filmakernumber,
+                      lastname =:lastname, 
+                      nationality =:nationality 
+                      WHERE id =:id"; //initalise the Query variable and the commande to execute
         $statement = $dbh->prepare($query);//Prepare Query
         $statement->execute();
-        $queryResult = $statement->fetch(); //prepare result for client
+        $queryResult = $statement->fetchAll(); //prepare result for client
         $dbh = null;
         return $queryResult;
     } catch (PDOException $e) {
@@ -68,6 +99,11 @@ function updateFilmMaker($filmMakers)
 
     }
 }
+
+
+//SELECT COLUMN_NAME
+//  FROM INFORMATION_SCHEMA.COLUMNS
+//  WHERE TABLE_SCHEMA = 'mcu' AND TABLE_NAME = 'filmmakers';
 
 
 //######################################### Test unitaire ###############################################\\
@@ -78,6 +114,7 @@ $cmd = "mysql -u $user -p$pass < Restore-MCU-PO-Final.sql";
 exec($cmd);
 
 // Test unitaire de la fonction getAllItems
+echo "\n";
 $Items = getAllItems();
 if (count($Items) == 4) {
     echo "Test unitaire de la fonction getAllItems : ";
@@ -91,7 +128,7 @@ echo "\n";
 
 //Test unitaire de la fonction getoneItem
 $Item = getoneItem();
-if (count($Item) == 4) {
+if (count($Item) == 1) {
     echo "Test unitaire de la fonction GetoneItem : ";
     echo "OK MON POTE ";
 } else {
@@ -102,16 +139,16 @@ if (count($Item) == 4) {
 echo "\n";
 
 //Test unitaire de la fonction updateFilmMaker
-$Item = updateFilmMaker(2);
-if ($Item('lastname') == 'Toto') {
-    echo "Test unitaire de la fonction updateFilmMaker : ";
-    echo "OK MON POTE ";
-} else {
-    echo "Test unitaire de la fonction updateFilmMaker : ";
-    echo "PAS OK MON POTE";
-
-}
-
-die();
+//$Item = GetFilmMaker();
+//if () {
+//    echo "Test unitaire de la fonction GetFilmMaker : ";
+//    echo "OK MON POTE ";
+//} else {
+//    echo "Test unitaire de la fonction GetFilmMaker : ";
+//    echo "PAS OK MON POTE";
+//
+//}
+//
+//die();
 
 ?>
