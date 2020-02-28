@@ -7,70 +7,81 @@
  */
 
 require ("crud.php");
+require (".constant.php");
+$cmd = "mysql -u $user -p$pass < Restore-MCU-PO-Final.sql";
+exec($cmd);
 
-
-
-function testcreateFilmMaker(){
+function testcreateFilmMaker(){ //Create one
     $filmMaker = ['firstname'=>'Joe','lastname' => 'Dalton','nationality' => 'us'];
 
     echo "\n";
-    $Items = createFilmMaker();
-    if (($Items) == 4) {
+    $Items = createFilmMaker(4);
+    if (($Items) == 4 + 1) {
         echo "Test d'acceptation (Create) : ";
-        echo "OK !";
+        echo "Réussis pour ce test";
         echo "\n";
     } else {
         echo "Test d'acceptation (Create) : ";
-        echo "PAS OK !";
-
+        echo "Échoué pour ce test";
+        echo "\n";
     }
 }
 
 
-function testgetFilmMaker(){
-    echo "Test d'acceptation (Getone) : OK ! \n";
+function testgetFilmMaker(){ //Get one
+    echo "\n";
+    $item = getFilmMaker(3);
+    if ($item['lastname'] == 'Chamblon') {
+        echo "Test d'acceptation (Getone) : ";
+        echo "Réussis pour ce test";
+        echo "\n";
+    } else {
+        echo "Test d'acceptation (Getone) : ";
+        echo "Échoué pour ce test";
+        echo "\n";
+    }
 
 }
 
 
-function testgetFilmMakers(){
-    require ".constant.php";
+function testgetFilmMakers(){ //Get All
 
-    $cmd = "mysql -u $user -p$pass < Restore-MCU-PO-Final.sql";
-    exec($cmd);
 
 
     echo "\n";
     $Items = getFilmMakers();
     if (count($Items) == 4) {
         echo "Test d'acceptation (GetAll) : ";
-        echo "OK !";
+        echo "Réussis pour ce test";
         echo "\n";
     } else {
         echo "Test d'acceptation (GetAll) : ";
-        echo "PAS OK !";
+        echo "Échoué pour ce test";
 
     }
 }
 
 
-function testgetFilmMakerByName(){
-    echo "Test d'acceptation (GetByName) : OK ! \n";
+function testgetFilmMakerByName(){ //Get one by name
+
 }
 
-function testupdateFilmMaker(){
-    echo "Test d'acceptation (Update) : OK ! \n";
+function testupdateFilmMaker(){  //update one
+
 }
 
 
-function testdeleteFilmMaker(){
-    echo "Test d'acceptation (Delete) : OK ! \n";
+function testdeleteFilmMaker(){ //delete one
+
 }
-testcreateFilmMaker();
-testdeleteFilmMaker();
-testgetFilmMaker();
-testgetFilmMakerByName();
-testgetFilmMakers();
-testupdateFilmMaker();
+
+
+testgetFilmMaker();         //Function Getone FilmMaker
+testgetFilmMakers();        //Function GetAll FilmMakers
+testgetFilmMakerByName();   //Function Getone Byname FilmMaker
+testupdateFilmMaker();      //Function Edit FilmMaker
+testcreateFilmMaker();      //Function Add FilmMaker
+testdeleteFilmMaker();      //Function remove one FilmMaker
+
 
 ?>

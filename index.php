@@ -83,7 +83,7 @@ function updateFilmMaker($filmMakers)
 
 
         $dbh = getPDO();
-        $query = "UPDATE filmMakers SET
+        $query = "UPDATE filmMaker SET
                       filmakernumber=:filmakernumber,
                       lastname =:lastname, 
                       nationality =:nationality 

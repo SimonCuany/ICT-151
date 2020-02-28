@@ -15,12 +15,15 @@ function getPDO()
 
 }
 
-function createFilmMaker($filmMaker)
+
+function createFilmMaker($filmmaker)
 {
-    require ".constant.php";
+
+
     try {
+
         $dbh = getPDO();
-        $query = 'SELECT * FROM filmmakers'; //initalise the Query variable and the commande to execute
+        $query = 'INSERT INTO filmmaker value (filmaker =:filmaker)'; //initalise the Query variable and the commande to execute
         $statement = $dbh->prepare($query);//Prepare Query
         $statement->execute();
         $queryResult = $statement->fetchAll(); //prepare result for client
@@ -31,13 +34,26 @@ function createFilmMaker($filmMaker)
         print "Error!: " . $e->getMessage() . "\n";
 
     }
-}
+} //don't work
 
 
 function getFilmMaker($id)
 {
+    require ".constant.php";
+    try {
+        $dbh = getPDO();
+        $query = 'SELECT * FROM filmmakers where id =:id'; //initalise the Query variable and the commande to execute
+        $statement = $dbh->prepare($query);//Prepare Query
+        $statement->execute(['id'=>$id]);
+        $queryResult = $statement->fetch(PDO::FETCH_ASSOC); //prepare result for client
+        $dbh = null;
+        return $queryResult;
 
-}
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "\n";
+
+    }
+} //don't work
 
 function getFilmMakers()
 {
@@ -56,7 +72,8 @@ function getFilmMakers()
 
     }
 
-}
+} //Work great
+
 
 
 function getFilmMakerByName($name)
