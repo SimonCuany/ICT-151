@@ -25,7 +25,7 @@ function createFilmMaker($filmmaker)
         $dbh = getPDO();
         $query = 'INSERT INTO filmmaker value (filmaker =:filmaker)'; //initalise the Query variable and the commande to execute
         $statement = $dbh->prepare($query);//Prepare Query
-        $statement->execute();
+        $statement->execute(['filmmaker'=>$filmmaker]);
         $queryResult = $statement->fetchAll(); //prepare result for client
         $dbh = null;
         return $queryResult;

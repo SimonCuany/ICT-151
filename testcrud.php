@@ -48,7 +48,7 @@ function testgetFilmMakers(){ //Get All
 
 
 
-    echo "\n";
+
     $Items = getFilmMakers();
     if (count($Items) == 4) {
         echo "Test d'acceptation (GetAll) : ";
