@@ -1,0 +1,11 @@
+id,smallimage,bigimage,marque,modele
+NULL,view/images/B101_small.jpg,view/images/B101.jpg,Burton,B101
+NULL,view/images/B126_small.jpg,view/images/B126.jpg,"Free Thinker",B126
+NULL,B327_small.jpg,view/images/B327.jpg,Burton,B327
+NULL,K067_small.jpg,view/images/K067.jpg,Prior,K067
+NULL,K266_small.jpg,view/images/K266.jpg,KR,K266
+NULL,K409_small.jpg,view/images/K409.jpg,K2,K409
+NULL,N100_small.jpg,view/images/N100.jpg,NSnow,N100
+NULL,N754_small.jpg,view/images/N754.jpg,NSnow,N754
+NULL,P067_small.jpg,view/images/P067.jpg,Prior,P067
+NULL,P165_small.jpg,view/images/P165.jpg,Prior,P165

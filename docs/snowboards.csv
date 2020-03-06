@@ -1,0 +1,11 @@
+id,dateretour,disponible,SnowType_id
+NULL,,true,1
+NULL,2020.01.09,false,2
+NULL,2020-02-02,false,3
+NULL,2020-01-15,false,4
+NULL,NULL,true,5
+NULL,NULL,true,6
+NULL,2020-03-19,false,7
+NULL,2020-02-12,false,8
+NULL,2020-04-06,false,9
+NULL,NULL,true,10
